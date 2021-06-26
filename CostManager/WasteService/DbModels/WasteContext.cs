@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace WasteService.DbModels
 {
-    public class WasteContext //: DbContext
+    public class WasteContext : DbContext
     {
+
     }
 }

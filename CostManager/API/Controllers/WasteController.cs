@@ -17,8 +17,8 @@ namespace API.Controllers
             this.wasteServiceProxy = wasteServiceProxy;
         }
 
-        // GET apiv1/waste/byclient/{id}
-        [HttpGet("byclient/{id}")]
+        // GET apiv1/waste/byclient/{clientId}
+        [HttpGet("byclient/{clientId}")]
         public async Task<ActionResult<List<APIWaste>>> Get(int clientId)
         {
             return await this.wasteServiceProxy.GetWastes(clientId);
