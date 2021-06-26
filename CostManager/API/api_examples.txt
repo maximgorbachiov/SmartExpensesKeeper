@@ -1,0 +1,4 @@
+https://localhost:44348/apiv1/waste/save
+{"ClientId": "1", "Market": "Green", "BuyTime": "2021-06-14T22:00:00.000Z", "Products": [{"Title": "bread", "Price": 2}, {"Title": "butter", "Price": 3}]}
+
+https://localhost:44348/apiv1/waste/byclient/1

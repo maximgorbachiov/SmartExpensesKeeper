@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "WasteService";
+
+package waste;
+
+service WasteServer {
+  rpc SaveWaste (WasteRequest) returns (google.protobuf.Empty);
+  rpc GetWastes (ClientId) returns (WasteResponse);
+}
+
+message WasteRequest {
+  string clientId = 1;
+  string market = 2;
+  string products = 3;
+  google.protobuf.Timestamp date = 4;
+}
+
+message ClientId {
+  string id = 1;
+}
+
+message WasteResponse {
+  string wastes = 1;
+}
