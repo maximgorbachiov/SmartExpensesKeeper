@@ -3,10 +3,10 @@ using Android.App;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
-using AndroidX.AppCompat.Widget;
 using AndroidX.AppCompat.App;
 using Google.Android.Material.FloatingActionButton;
 using Google.Android.Material.Snackbar;
+using Android.Widget;
 
 namespace MobileClient
 {
@@ -19,11 +19,14 @@ namespace MobileClient
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             SetContentView(Resource.Layout.activity_main);
 
-            Toolbar toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+            AndroidX.AppCompat.Widget.Toolbar toolbar = FindViewById<AndroidX.AppCompat.Widget.Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
 
             FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
             fab.Click += FabOnClick;
+
+            ImageButton bell = FindViewById<ImageButton>(Resource.Id.bellButton);
+            bell.Click += OpenListOfPausedPurchases;
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -56,5 +59,12 @@ namespace MobileClient
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
-	}
+
+        private void OpenListOfPausedPurchases(object sender, EventArgs eventArgs)
+        {
+            ListView list = FindViewById<ListView>(Resource.Id.purchasesList);
+            
+        }
+
+    }
 }
