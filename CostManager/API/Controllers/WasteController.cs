@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace API.Controllers
 {
     [ApiController]
-    [Route("apiv1/waste")]
+    [Route("api/waste")]
     public class WasteController : ControllerBase
     {
         private readonly IWasteServiceProxy wasteServiceProxy;
@@ -17,14 +17,14 @@ namespace API.Controllers
             this.wasteServiceProxy = wasteServiceProxy;
         }
 
-        // GET apiv1/waste/byclient/{clientId}
+        // GET api/waste/byclient/{clientId}
         [HttpGet("byclient/{clientId}")]
         public async Task<ActionResult<List<APIWaste>>> Get(int clientId)
         {
             return await this.wasteServiceProxy.GetWastes(clientId);
         }
 
-        // POST apiv1/waste/save
+        // POST api/waste/save
         [HttpPost("save")]
         public async Task SaveWaste(APIWaste waste)
         {

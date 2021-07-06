@@ -12,6 +12,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MobileClient.Proxy
 {
@@ -21,21 +22,21 @@ namespace MobileClient.Proxy
 
         public BlankPurchasesProxy()
         {
-            client.BaseAddress = new Uri(ConfigurationManager.Host);
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            this.client.BaseAddress = new Uri(ConfigurationManager.Host);
+            this.client.DefaultRequestHeaders.Accept.Clear();
+            this.client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public List<Purchase> RetrieveBlankPurchases(string userGuid)
+        public async Task<List<Purchase>> RetrieveBlankPurchases(string userGuid)
         {
-            /*Product product = null;
-            HttpResponseMessage response = await client.GetAsync(path);
+            string path = $"api/blankPurchases/{userGuid}";
+            Purchase[] purchases = null;
+            HttpResponseMessage response = await this.client.GetAsync(path);
             if (response.IsSuccessStatusCode)
             {
-                product = await response.Content.ReadAsAsync<Product>();
+                purchases = await response.Content.ReadAsStreamAsync<Purchase[]>();
             }
             return product;
-            */
         }
     }
 }
