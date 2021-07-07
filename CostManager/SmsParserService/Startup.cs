@@ -1,14 +1,14 @@
-﻿using CommonUtilities.Serializers;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using WasteService.DataProviders;
-using WasteService.Utilities;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace WasteService
+namespace SmsParserService
 {
     public class Startup
     {
@@ -17,9 +17,6 @@ namespace WasteService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddGrpc();
-            services.AddTransient<IDataConverter, JsonDataProviderConverter>();
-            services.AddSingleton<IDataProvider, MemoryDataProvider>();
-            services.AddTransient<ISerializer, JsonSerializer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -32,15 +29,15 @@ namespace WasteService
 
             app.UseRouting();
 
-            app.UseEndpoints((Action<Microsoft.AspNetCore.Routing.IEndpointRouteBuilder>)(endpoints =>
+            app.UseEndpoints(endpoints =>
             {
-                GrpcEndpointRouteBuilderExtensions.MapGrpcService<WasteManager>(endpoints);
+                endpoints.MapGrpcService<SmsParser>();
 
                 endpoints.MapGet("/", async context =>
                 {
                     await context.Response.WriteAsync("Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
                 });
-            }));
+            });
         }
     }
 }

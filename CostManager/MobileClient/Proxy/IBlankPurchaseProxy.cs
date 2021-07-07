@@ -9,11 +9,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MobileClient.Proxy
 {
     public interface IBlankPurchaseProxy
     {
-        public List<Purchase> RetrieveBlankPurchases(string userGuid);
+        public Task<List<Purchase>> RetrieveBlankPurchases(string userGuid);
     }
 }

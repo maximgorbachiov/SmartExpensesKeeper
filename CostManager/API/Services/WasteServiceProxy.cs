@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Models;
+using CommonUtilities.Serializers;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Net.Client;
 using Microsoft.Extensions.Configuration;
 using WasteService;
-using WasteService.Utilities;
 
 namespace API.Services
 {

@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "SmsParserService";
+
+package smsParser;
+
+service SmsParserServer {
+  rpc ParseSms (SmsInfo) returns (google.protobuf.Empty);
+}
+
+message SmsInfo {
+  string bank = 1;
+  string body = 2;
+}

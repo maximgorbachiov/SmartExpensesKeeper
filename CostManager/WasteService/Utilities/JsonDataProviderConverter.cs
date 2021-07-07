@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using CommonUtilities.Serializers;
+using System.Collections.Generic;
 using WasteService.DataProviders;
 using WasteService.Models;
 

@@ -7,6 +7,7 @@ using AndroidX.AppCompat.App;
 using Google.Android.Material.FloatingActionButton;
 using Google.Android.Material.Snackbar;
 using Android.Widget;
+using MobileClient.Proxy;
 
 namespace MobileClient
 {
@@ -63,7 +64,7 @@ namespace MobileClient
         private void OpenListOfPausedPurchases(object sender, EventArgs eventArgs)
         {
             ListView list = FindViewById<ListView>(Resource.Id.purchasesList);
-            
+            IBlankPurchaseProxy blankPurchaseProxy = new BlankPurchasesProxy();
         }
 
     }

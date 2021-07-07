@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace WasteService.Utilities
+namespace MobileClient.Utilities
 {
     public class JsonSerializer : ISerializer
     {
