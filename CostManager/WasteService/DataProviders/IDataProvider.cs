@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using WasteService.Models;
+﻿using CommonUtilities.Models;
+using System.Collections.Generic;
 
 namespace WasteService.DataProviders
 {
     public interface IDataProvider
     {
-        void SaveWaste(Waste waste);
-        List<Waste> GetWastes(string clientId);
+        void SaveWaste(Purchase waste);
+        List<Purchase> GetWastes(string userGuid);
     }
 }

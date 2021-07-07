@@ -1,6 +1,6 @@
-﻿using MobileClient.Configuration;
-using MobileClient.Models;
-using MobileClient.Utilities;
+﻿using CommonUtilities.Models;
+using CommonUtilities.Serializers;
+using MobileClient.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;

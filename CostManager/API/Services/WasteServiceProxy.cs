@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using API.Models;
+using CommonUtilities.Models;
 using CommonUtilities.Serializers;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Net.Client;
@@ -20,7 +20,7 @@ namespace API.Services
             this.serializer = serializer;
         }
 
-        public async Task<List<APIWaste>> GetWastes(int clientId)
+        public async Task<List<Purchase>> GetWastes(int clientId)
         {
             using var channel = GrpcChannel.ForAddress(this.adress);
 
@@ -28,12 +28,12 @@ namespace API.Services
             
             var reply = await client.GetWastesAsync(new ClientId { Id = $"{clientId}" });
 
-            List<APIWaste> wastes = this.serializer.DeserializeItem<List<APIWaste>>(reply.Wastes);
+            List<Purchase> wastes = this.serializer.DeserializeItem<List<Purchase>>(reply.Wastes);
 
             return wastes;
         }
 
-        public async Task SaveWaste(APIWaste waste)
+        public async Task SaveWaste(Purchase waste)
         {
             using var channel = GrpcChannel.ForAddress(this.adress);
 
@@ -41,10 +41,10 @@ namespace API.Services
 
             WasteRequest wasteRequest = new WasteRequest
             {
-                ClientId = waste.ClientId,
+                ClientId = waste.UserGuid,
                 Market = waste.Market,
-                Date = Timestamp.FromDateTime(waste.BuyTime),
-                Products = this.serializer.SerializeItem<List<Product>>(waste.Products)
+                Date = Timestamp.FromDateTime(waste.PurchaseTime),
+                Products = this.serializer.SerializeItem(waste.Positions)
             };
 
             await client.SaveWasteAsync(wasteRequest);

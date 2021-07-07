@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "BlankPurchasesService";
+
+package blankPurchase;
+
+// server for storing and finding blank purchases
+service BlankPurchaseServer {
+  rpc StoreBlankPurchase (BlankPurchaseRequest) returns (google.protobuf.Empty);
+  rpc GetBlankPurchases (ClientGuid) returns (BlankPurchasesResponse);
+}
+
+// The request message containing the user's name.
+message BlankPurchaseRequest {
+  string clientGuid = 1;
+  string market = 2;
+  string positions = 3;
+  google.protobuf.Timestamp date = 4;
+}
+
+// The response message containing the greetings.
+message ClientGuid {
+  string guid = 1;
+}
+
+message BlankPurchasesResponse {
+  string blankPurchases = 1;
+}

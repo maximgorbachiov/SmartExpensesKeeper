@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Controllers\BlankPurchasesController.cs~RF1a79b6b.TMP" />
+    <None Remove="Protos\blankPurchase.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="Protos\blankPurchase.proto" GrpcServices="Server" />
     <Protobuf Include="Protos\waste.proto" GrpcServices="Client" />
     <PackageReference Include="Google.Protobuf" Version="3.17.3" />
     <PackageReference Include="Grpc.Net.Client" Version="2.38.0" />

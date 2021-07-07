@@ -19,4 +19,8 @@
     <ProjectReference Include="..\CommonUtilities\CommonUtilities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>

@@ -1,11 +1,7 @@
-﻿using API.Models;
-using Microsoft.AspNetCore.Http;
+﻿using CommonUtilities.Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web.Http.Results;
 
 namespace API.Controllers
 {
@@ -15,9 +11,9 @@ namespace API.Controllers
     {
         // GET api/blankPurchases/{clientGuid}
         [HttpGet("{clientGuid}")]
-        public async Task<JsonResult<APIWaste[]>> Get(int clientGuid)
+        public async Task<List<Purchase>> GetBlankPurchases(int clientGuid)
         {
-            //return await ;
+            return await Task.FromResult(new List<Purchase>());
         }
     }
 }
