@@ -64,7 +64,7 @@ namespace MobileClient
         private void OpenListOfPausedPurchases(object sender, EventArgs eventArgs)
         {
             ListView list = FindViewById<ListView>(Resource.Id.purchasesList);
-            IBlankPurchaseProxy blankPurchaseProxy = new BlankPurchasesProxy();
+            IBlankPurchaseApiProxy blankPurchaseProxy = new BlankPurchasesApiProxy();
         }
 
     }

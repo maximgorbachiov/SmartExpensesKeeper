@@ -16,7 +16,7 @@ namespace API.Models.DbModels
             for(int i = 0; i < names.Length; i++)
             {
                 var user = this.Users.FirstOrDefault(u => u.Name == names[i]);
-                if (user != null)
+                if (user == null)
                 {
                     this.Users.Add(new User { Id = i + 1, Name = names[i] });
                 }

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace MobileClient.Proxy
 {
-    public interface IBlankPurchaseProxy
+    public interface IBlankPurchaseApiProxy
     {
         public Task<List<Purchase>> RetrieveBlankPurchases(string userGuid);
     }

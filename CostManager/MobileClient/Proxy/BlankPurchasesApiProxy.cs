@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace MobileClient.Proxy
 {
-    public class BlankPurchasesProxy : IBlankPurchaseProxy
+    public class BlankPurchasesApiProxy : IBlankPurchaseApiProxy
     {
         private HttpClient client = new HttpClient();
         private ISerializer serializer;
 
-        public BlankPurchasesProxy()
+        public BlankPurchasesApiProxy()
         {
             this.client.BaseAddress = new Uri(ConfigurationManager.Host);
             this.client.DefaultRequestHeaders.Accept.Clear();

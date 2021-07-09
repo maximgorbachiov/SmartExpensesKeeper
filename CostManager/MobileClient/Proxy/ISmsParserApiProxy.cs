@@ -1,8 +1,8 @@
-﻿using MobileClient.Models;
+﻿using CommonUtilities.Models;
 
 namespace MobileClient.Proxy
 {
-    public interface ISmsParserProxy
+    public interface ISmsParserApiProxy
     {
         void SendSmsInfo(SmsInfo smsInfo);
     }

@@ -69,11 +69,10 @@
     <Compile Include="Configuration\ConfigurationItem.cs" />
     <Compile Include="Configuration\ConfigurationManager.cs" />
     <Compile Include="MainActivity.cs" />
-    <Compile Include="Models\SmsInfo.cs" />
-    <Compile Include="Proxy\BlankPurchasesProxy.cs" />
-    <Compile Include="Proxy\IBlankPurchaseProxy.cs" />
-    <Compile Include="Proxy\ISmsParserProxy.cs" />
-    <Compile Include="Proxy\SmsParserProxy.cs" />
+    <Compile Include="Proxy\BlankPurchasesApiProxy.cs" />
+    <Compile Include="Proxy\IBlankPurchaseApiProxy.cs" />
+    <Compile Include="Proxy\ISmsParserApiProxy.cs" />
+    <Compile Include="Proxy\SmsParserApiProxy.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\SMSListener.cs" />
@@ -142,6 +141,9 @@
       <Project>{5a384297-d6c6-439e-8595-9562d4b3769c}</Project>
       <Name>CommonUtilities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
