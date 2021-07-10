@@ -5,11 +5,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Protos\blankPurchase.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Grpc.AspNetCore" Version="2.27.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <Protobuf Include="Protos\blankPurchase.proto" GrpcServices="Server" />
     <Protobuf Include="Protos\smsParser.proto" GrpcServices="Server" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CommonUtilities\CommonUtilities.csproj" />
   </ItemGroup>
 
 </Project>

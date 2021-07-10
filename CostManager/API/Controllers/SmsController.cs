@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
@@ -15,7 +10,7 @@ namespace API.Controllers
         [HttpPost("parse")]
         public async void ParseSms(string sms)
         {
-            await    
+            //await    
         }
     }
 }

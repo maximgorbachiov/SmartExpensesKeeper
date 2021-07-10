@@ -5,6 +5,6 @@ namespace API.Services
 {
     public interface ISmsParserProxy
     {
-        Task ParseSms(SmsInfo smsInfo)
+        Task ParseSms(SmsInfo smsInfo);
     }
 }

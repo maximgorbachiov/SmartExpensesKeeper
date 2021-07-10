@@ -6,7 +6,7 @@ namespace CommonUtilities.Models
 {
     public class Position
     {
-        public int Price { get; set; }
+        public double Price { get; set; }
         public int Title { get; set; }
         public int Count { get; set; }
         public int Weight { get; set; }

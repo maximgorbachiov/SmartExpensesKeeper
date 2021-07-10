@@ -1,7 +1,7 @@
-﻿using CommonUtilities.Serializers;
+﻿using CommonUtilities.Models;
+using CommonUtilities.Serializers;
 using System.Collections.Generic;
 using WasteService.DataProviders;
-using WasteService.Models;
 
 namespace WasteService.Utilities
 {
@@ -29,14 +29,14 @@ namespace WasteService.Utilities
 
         public void SaveWaste(WasteRequest request)
         {
-            var products = this.serializer.DeserializeItem<List<Product>>(request.Products);
+            var products = this.serializer.DeserializeItem<List<Position>>(request.Products);
 
-            Waste waste = new Waste
+            Purchase waste = new Purchase
             {
-                ClientId = request.ClientId,
-                Products = products,
+                UserGuid = request.ClientId,
+                Positions = products,
                 Market = request.Market,
-                BuyTime = request.Date.ToDateTime()
+                PurchaseTime = request.Date.ToDateTime()
             };
 
             this.dataProvider.SaveWaste(waste);

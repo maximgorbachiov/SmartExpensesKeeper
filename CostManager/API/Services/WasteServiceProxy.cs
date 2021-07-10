@@ -11,18 +11,18 @@ namespace API.Services
 {
     public class WasteServiceProxy : IWasteServiceProxy
     {
-        private readonly string adress;
+        private readonly string address;
         private readonly ISerializer serializer;
 
         public WasteServiceProxy(IConfiguration configuration, ISerializer serializer)
         {
-            this.adress = configuration.GetConnectionString("WasteServiceAdress");
+            this.address = configuration.GetConnectionString("WasteServiceAdress");
             this.serializer = serializer;
         }
 
         public async Task<List<Purchase>> GetWastes(int clientId)
         {
-            using var channel = GrpcChannel.ForAddress(this.adress);
+            using var channel = GrpcChannel.ForAddress(this.address);
 
             var client = new WasteServer.WasteServerClient(channel);
             
@@ -35,7 +35,7 @@ namespace API.Services
 
         public async Task SaveWaste(Purchase waste)
         {
-            using var channel = GrpcChannel.ForAddress(this.adress);
+            using var channel = GrpcChannel.ForAddress(this.address);
 
             var client = new WasteServer.WasteServerClient(channel);
 

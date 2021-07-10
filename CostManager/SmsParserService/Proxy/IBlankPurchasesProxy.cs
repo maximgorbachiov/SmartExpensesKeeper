@@ -1,11 +1,13 @@
 ﻿using CommonUtilities.Models;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
-namespace API.Services
+namespace SmsParserService.Proxy
 {
     public interface IBlankPurchasesProxy
     {
-        Task<List<Purchase>> RetrieveBlankPurchases(string userGuid);
+        Task StoreBlankPurchase(Purchase purchase);
     }
 }
