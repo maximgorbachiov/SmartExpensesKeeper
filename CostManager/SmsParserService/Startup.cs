@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SmsParserService.Proxy;
+using SmsParserService.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace SmsParserService
 {
     public class Startup
     {
+        public delegate ISmsHandler ServiceResolver(Bank bank);
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
@@ -21,6 +24,16 @@ namespace SmsParserService
             services.AddGrpc();
             services.AddTransient<IBlankPurchasesProxy, BlankPurchasesProxy>();
             services.AddTransient<ISerializer, JsonSerializer>();
+            services.AddTransient<DefaultSmsHandler>();
+            services.AddTransient<IdeaBankSmsHandler>();
+            services.AddTransient<ServiceResolver>(serviceProvider => bankName =>
+            {
+                return bankName switch
+                {
+                    Bank.IdeaBank => serviceProvider.GetService<IdeaBankSmsHandler>(),
+                    _ => serviceProvider.GetService<DefaultSmsHandler>()
+                };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

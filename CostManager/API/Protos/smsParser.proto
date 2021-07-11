@@ -6,11 +6,18 @@ option csharp_namespace = "SmsParserService";
 
 package smsParser;
 
+enum Bank
+{
+    Default = 0;
+    IdeaBank = 1;
+    PriorBank = 2;
+}
+
 service SmsParserServer {
   rpc ParseSms (SmsInfo) returns (google.protobuf.Empty);
 }
 
 message SmsInfo {
-  string bank = 1;
+  Bank bank = 1;
   string body = 2;
 }
