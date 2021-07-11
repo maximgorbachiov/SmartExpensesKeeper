@@ -32,7 +32,7 @@ namespace WasteService
 
             app.UseRouting();
 
-            app.UseEndpoints((Action<Microsoft.AspNetCore.Routing.IEndpointRouteBuilder>)(endpoints =>
+            app.UseEndpoints(endpoints =>
             {
                 GrpcEndpointRouteBuilderExtensions.MapGrpcService<WasteManager>(endpoints);
 

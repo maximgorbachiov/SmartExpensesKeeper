@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using CommonUtilities.Serializers;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SmsParserService.Proxy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +19,8 @@ namespace SmsParserService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddGrpc();
+            services.AddTransient<IBlankPurchasesProxy, BlankPurchasesProxy>();
+            services.AddTransient<ISerializer, JsonSerializer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -31,7 +35,7 @@ namespace SmsParserService
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<SmsParser>();
+                GrpcEndpointRouteBuilderExtensions.MapGrpcService<SmsParser>(endpoints);
 
                 endpoints.MapGet("/", async context =>
                 {

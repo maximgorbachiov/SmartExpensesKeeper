@@ -12,12 +12,13 @@ namespace API.Services
     public class WasteServiceProxy : IWasteServiceProxy
     {
         private readonly string address;
-        private readonly ISerializer serializer;
+
+        public ISerializer Serializer { get; }
 
         public WasteServiceProxy(IConfiguration configuration, ISerializer serializer)
         {
             this.address = configuration.GetConnectionString("WasteServiceAdress");
-            this.serializer = serializer;
+            this.Serializer = serializer;
         }
 
         public async Task<List<Purchase>> GetWastes(int clientId)
@@ -28,7 +29,7 @@ namespace API.Services
             
             var reply = await client.GetWastesAsync(new ClientId { Id = $"{clientId}" });
 
-            List<Purchase> wastes = this.serializer.DeserializeItem<List<Purchase>>(reply.Wastes);
+            List<Purchase> wastes = this.Serializer.DeserializeItem<List<Purchase>>(reply.Wastes);
 
             return wastes;
         }
@@ -44,7 +45,7 @@ namespace API.Services
                 ClientId = waste.UserGuid,
                 Market = waste.Market,
                 Date = Timestamp.FromDateTime(waste.PurchaseTime),
-                Products = this.serializer.SerializeItem(waste.Positions)
+                Products = this.Serializer.SerializeItem(waste.Positions)
             };
 
             await client.SaveWasteAsync(wasteRequest);

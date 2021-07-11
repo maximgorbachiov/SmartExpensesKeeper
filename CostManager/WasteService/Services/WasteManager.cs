@@ -1,29 +1,51 @@
+using CommonUtilities.Models;
+using CommonUtilities.Providers;
+using CommonUtilities.Serializers;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using WasteService.Utilities;
 
 namespace WasteService
 {
     public class WasteManager : WasteServer.WasteServerBase
     {
-        private readonly IDataConverter dataConverter;
+        public ISerializer Serializer { get; }
+        public IDataProvider DataProvider { get; }
 
-        public WasteManager(IDataConverter dataConverter)
+        public WasteManager(ISerializer serializer, IDataProvider dataProvider)
         {
-            this.dataConverter = dataConverter;
+            this.Serializer = serializer;
+            this.DataProvider = dataProvider;
         }
 
-        public override Task<Empty> SaveWaste(WasteRequest request, ServerCallContext context)
+        public override async Task<Empty> SaveWaste(WasteRequest request, ServerCallContext context)
         {
-            this.dataConverter.SaveWaste(request);
-            return Task.FromResult(new Empty());
+            var products = this.Serializer.DeserializeItem<List<Position>>(request.Products);
+
+            Purchase waste = new Purchase
+            {
+                UserGuid = request.ClientId,
+                Positions = products,
+                Market = request.Market,
+                PurchaseTime = request.Date.ToDateTime()
+            };
+
+            await this.DataProvider.SaveWasteAsync(waste);
+
+            return new Empty();
         }
 
-        public override Task<WasteResponse> GetWastes(ClientId clientid, ServerCallContext context)
+        public override async Task<WasteResponse> GetWastes(ClientId clientid, ServerCallContext context)
         {
-            WasteResponse response = this.dataConverter.GetWastes(clientid.Id);
-            return Task.FromResult(response);
+            List<Purchase> wastes = await this.DataProvider.GetWastesAsync(clientid.Id);
+
+            WasteResponse response = new WasteResponse
+            {
+                Wastes = this.Serializer.SerializeItem(wastes)
+            };
+
+            return response;
         }
     }
 }
