@@ -7,7 +7,7 @@ namespace SmsParserService.Services
 {
     public class IdeaBankSmsHandler : ISmsHandler
     {
-        public Task<Purchase> ParseSms(SmsInfo smsInfo)
+        public Task<Purchase> ParseSms(SmsInfoRequest smsInfo)
         {
             Purchase purchase = new Purchase();
 

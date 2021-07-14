@@ -14,10 +14,10 @@ enum Bank
 }
 
 service SmsParserServer {
-  rpc ParseSms (SmsInfo) returns (google.protobuf.Empty);
+  rpc ParseSms (SmsInfoRequest) returns (google.protobuf.Empty);
 }
 
-message SmsInfo {
+message SmsInfoRequest {
   Bank bank = 1;
   string body = 2;
 }

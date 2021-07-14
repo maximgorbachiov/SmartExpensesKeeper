@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Protos\smsParser.proto" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Protobuf Include="Protos\waste.proto" GrpcServices="Client" />
     <Protobuf Include="Protos\blankPurchase.proto" GrpcServices="Client" />
     <Protobuf Include="Protos\smsParser.proto" GrpcServices="Client" />
@@ -33,6 +29,9 @@
       <GrpcServices>Server</GrpcServices>
     </None>
     <None Update="Protos\waste.proto">
+      <GrpcServices>Server</GrpcServices>
+    </None>
+    <None Update="Protos\smsParser.proto">
       <GrpcServices>Server</GrpcServices>
     </None>
   </ItemGroup>

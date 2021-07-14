@@ -7,7 +7,7 @@ namespace SmsParserService.Services
 {
     public class DefaultSmsHandler : ISmsHandler
     {
-        public Task<Purchase> ParseSms(SmsInfo smsInfo)
+        public Task<Purchase> ParseSms(SmsInfoRequest smsInfo)
         {
             Purchase purchase = new Purchase();
             string currency = "BYN";

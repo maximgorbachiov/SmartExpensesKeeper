@@ -20,7 +20,7 @@ namespace SmsParserService
 
         public IBlankPurchasesProxy BlankPurchasesProxy { get; }
 
-        public override async Task<Empty> ParseSms(SmsInfo smsInfo, ServerCallContext context)
+        public override async Task<Empty> ParseSms(SmsInfoRequest smsInfo, ServerCallContext context)
         {
             ISmsHandler smsHandler = this.bankResolver(smsInfo.Bank);
 

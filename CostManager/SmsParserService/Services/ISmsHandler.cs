@@ -5,6 +5,6 @@ namespace SmsParserService.Services
 {
     public interface ISmsHandler
     {
-        Task<Purchase> ParseSms(SmsInfo smsInfo);
+        Task<Purchase> ParseSms(SmsInfoRequest smsInfo);
     }
 }
