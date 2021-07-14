@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using API.Services;
+using CommonUtilities.Models;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace API.Controllers
 {
@@ -6,11 +9,18 @@ namespace API.Controllers
     [ApiController]
     public class SmsController : ControllerBase
     {
-        // GET api/sms/parse
-        [HttpPost("parse")]
-        public async void ParseSms(string sms)
+        private readonly ISmsParserProxy smsParserProxy;
+
+        public SmsController(ISmsParserProxy smsParserProxy)
         {
-            //await    
+            this.smsParserProxy = smsParserProxy;
+        }
+
+        // POST api/sms/parse
+        [HttpPost("parse")]
+        public async Task ParseSms(SmsInfo smsInfo)
+        {
+            await this.smsParserProxy.ParseSms(smsInfo);
         }
     }
 }
