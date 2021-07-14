@@ -26,6 +26,8 @@ namespace API
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddTransient<IWasteServiceProxy, WasteServiceProxy>();
+            services.AddTransient<IBlankPurchasesProxy, BlankPurchasesProxy>();
+            services.AddTransient<ISmsParserProxy, SmsParserProxy>();
             services.AddTransient<ISerializer, JsonSerializer>();
             services.AddControllers();
         }
