@@ -1,26 +1,51 @@
+using CommonUtilities.Models;
+using CommonUtilities.Providers;
+using CommonUtilities.Serializers;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlankPurchasesService
 {
     public class BlankPurchasesProvider : BlankPurchaseServer.BlankPurchaseServerBase
     {
-        public override Task<Empty> StoreBlankPurchase(BlankPurchaseRequest request, ServerCallContext context)
+        public ISerializer Serializer { get; }
+        public IDataProvider DataProvider { get; }
+
+        public BlankPurchasesProvider(ISerializer serializer, IDataProvider dataProvider)
         {
-            //this.dataConverter.SaveWaste(request);
-            return Task.FromResult(new Empty());
+            this.Serializer = serializer;
+            this.DataProvider = dataProvider;
         }
 
-        public override Task<BlankPurchasesResponse> GetBlankPurchases(ClientGuid clientid, ServerCallContext context)
+        public override async Task<Empty> StoreBlankPurchase(BlankPurchaseRequest request, ServerCallContext context)
         {
-            //BlankPurchasesResponse response = this.dataConverter.GetWastes(clientid.Id);
-            //return Task.FromResult(response);
-            return Task.FromResult(new BlankPurchasesResponse());
+            var products = this.Serializer.DeserializeItem<List<Position>>(request.Positions);
+
+            Purchase waste = new Purchase
+            {
+                UserGuid = request.ClientGuid,
+                Positions = products,
+                Market = request.Market,
+                PurchaseTime = request.Date.ToDateTime()
+            };
+
+            await this.DataProvider.SaveWasteAsync(waste);
+
+            return new Empty();
+        }
+
+        public override async Task<BlankPurchasesResponse> GetBlankPurchases(ClientGuid clientid, ServerCallContext context)
+        {
+            List<Purchase> wastes = await this.DataProvider.GetWastesAsync(clientid.Guid);
+
+            BlankPurchasesResponse response = new BlankPurchasesResponse
+            {
+                BlankPurchases = this.Serializer.SerializeItem(wastes)
+            };
+
+            return response;
         }
     }
 }
